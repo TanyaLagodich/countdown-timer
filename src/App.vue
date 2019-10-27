@@ -1,19 +1,20 @@
 <template>
   <div id="app">
-    <label>Название
-      <input type="text"
-             v-model="ev.name">
-    </label>
-    <label>Дата
-      <input type="date"
-             v-model="ev.date">
-             {{ev.date}}
-    </label>
-    <label>Время
-      <input type="time"
-             v-model="ev.time">
-    </label>
-    <button @click="countLeftTime">Создать</button>
+    <div class="input-box">
+      <label>Название
+        <input type="text"
+              v-model="ev.name">
+      </label>
+      <label>Дата
+        <input type="date"
+              v-model="ev.date">
+      </label>
+      <label>Время
+        <input type="time"
+              v-model="ev.time">
+      </label>
+      <button @click="countLeftTime">Создать</button>
+    </div>
 
     <h1>{{ leftTimes.days }} : {{ leftTimes.hours }} :
       {{ leftTimes.minutes }} : {{ leftTimes.seconds }}</h1>
@@ -56,22 +57,10 @@ export default {
       this.leftTimes.hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
       this.leftTimes.minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
       this.leftTimes.seconds = Math.floor((diff % (1000 * 60)) / 1000);
-      let timerId = setTimeout(() => {
+      let timerId = setInterval(() => {
         console.log(diff < 0, timerId);
-        timerId = setTimeout(this.countLeftTime, 1000);
-        if (diff === 0 || diff < 0) clearTimeout(timerId);
-      }, 0);
-    },
-    count(diff) {
-      let timerId = setTimeout(() => {
-        console.log('work', timerId);
-        // if (diff < 0) clearTimeout(timerId);
-        timerId = setTimeout(() => {
-          this.leftTimes.days = Math.floor(diff / (1000 * 60 * 60 * 24));
-          this.leftTimes.hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-          this.leftTimes.minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-          this.leftTimes.seconds = Math.floor((diff % (1000 * 60)) / 1000);
-        }, 1000);
+        timerId = setInterval(this.countLeftTime, 1000);
+        if (diff === 0 || diff < 0) clearInterval(timerId);
       }, 0);
     },
   },
@@ -79,11 +68,5 @@ export default {
 </script>
 
 <style lang="scss">
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+@import './styles/main';
 </style>
