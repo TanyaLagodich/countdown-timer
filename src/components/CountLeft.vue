@@ -1,7 +1,7 @@
 <template>
   <div>
-    <h1>{{ leftTimes.days }} : {{ leftTimes.hours }} :
-        {{ leftTimes.minutes }} : {{ leftTimes.seconds }}</h1>
+    <h1>{{ leftTimes.days }}дн : {{ leftTimes.hours }}ч :
+        {{ leftTimes.minutes }}мин : {{ leftTimes.seconds }}сек</h1>
   </div>
 </template>
 <script>

@@ -5,26 +5,42 @@
              v-model="ev.name">
     </label>
     <label>Дата
-      <input type="date"
-             v-model="ev.date">
+      <flatpickr v-model="ev.date"
+                 :config="dateConfig" />
     </label>
     <label>Время
-      <input type="time"
-             v-model="ev.time">
+      <flatpickr v-model="ev.time"
+                 :config="timeConfig" />
     </label>
-    <button @click="$emit('countLeftTime', ev)">Создать</button>
-    <p v-if="error"
-       class="error">{{ error }}</p>
+    <button @click="createEvent">Создать</button>
+    <!-- <p v-if="error"
+       class="error">{{ error }}</p> -->
   </div>
 </template>
 <script>
+import Russian from 'flatpickr/dist/l10n/ru';
+import Flatpickr from './_Flatpickr.vue';
+
 export default {
+  components: { Flatpickr },
   data() {
     return {
       ev: {
         name: '',
-        date: new Date(),
-        time: '00:00',
+        date: '',
+        time: '',
+      },
+      dateConfig: {
+        minDate: 'today',
+        defaultDate: 'today',
+        locale: Russian.ru,
+        dateFormat: 'd-m-Y',
+      },
+      timeConfig: {
+        noCalendar: true,
+        enableTime: true,
+        dateFormat: 'H:i',
+        time_24hr: true,
       },
     };
   },
@@ -35,15 +51,14 @@ export default {
     },
   },
   created() {
-    this.ev.date = this.createEvDate();
+    const now = new Date();
+    this.ev.time = `${now.getHours()}:${now.getMinutes()}`;
   },
   methods: {
-    createEvDate() {
-      const today = new Date();
-      const year = today.getFullYear();
-      const month = today.getMonth() + 1 < 10 ? `0${today.getMonth() + 1}` : today.getMonth() + 1;
-      const date = today.getDate() < 10 ? `0${today.getDate()}` : today.getDate();
-      return `${year}-${month}-${date}`;
+    createEvent() {
+      const [date, month, year] = this.ev.date.split('-');
+      this.ev.date = `${year}, ${month + 1}, ${date}`;
+      this.$emit('countLeftTime', this.ev);
     },
   },
 };

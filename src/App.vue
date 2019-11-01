@@ -1,18 +1,25 @@
 <template>
   <div id="app">
-    <input-box v-if="!event"
-               @countLeftTime="countLeftTime"
-               :error="error" />
-    <count-left v-else
-                :leftTimes="leftTimes" />
+    <div class="container">
+      <h1>Countdown Timer</h1>
+      <div class="wrap">
+        <events-list />
+        <input-box v-if="!event"
+                  @countLeftTime="countLeftTime"
+                  :error="error" />
+        <count-left v-else
+                    :leftTimes="leftTimes" />
+      </div>
+    </div>
   </div>
 </template>
 <script>
 import InputBox from './components/InputBox.vue';
 import CountLeft from './components/CountLeft.vue';
+import EventsList from './components/EventsList.vue';
 
 export default {
-  components: { InputBox, CountLeft },
+  components: { InputBox, CountLeft, EventsList },
   data() {
     return {
       event: false,
