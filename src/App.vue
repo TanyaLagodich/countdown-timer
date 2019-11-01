@@ -1,7 +1,8 @@
 <template>
   <div id="app">
     <input-box v-if="!event"
-               @countLeftTime="countLeftTime" />
+               @countLeftTime="countLeftTime"
+               :error="error" />
     <count-left v-else
                 :leftTimes="leftTimes" />
   </div>
@@ -21,6 +22,7 @@ export default {
         minutes: '',
         seconds: '',
       },
+      error: '',
     };
   },
   methods: {
@@ -29,6 +31,11 @@ export default {
       const today = new Date().getTime();
       const eventDate = new Date(`${ev.date} ${ev.time}`).getTime();
       const diff = eventDate - today;
+      if (diff <= 0) {
+        this.error = 'Это событие уже наступило!';
+        this.event = false;
+        return;
+      }
       this.leftTimes.days = Math.floor(diff / (1000 * 60 * 60 * 24));
       this.leftTimes.hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
       this.leftTimes.minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));

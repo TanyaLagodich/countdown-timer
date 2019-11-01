@@ -13,6 +13,8 @@
              v-model="ev.time">
     </label>
     <button @click="$emit('countLeftTime', ev)">Создать</button>
+    <p v-if="error"
+       class="error">{{ error }}</p>
   </div>
 </template>
 <script>
@@ -25,6 +27,12 @@ export default {
         time: '00:00',
       },
     };
+  },
+  props: {
+    error: {
+      type: String,
+      default: '',
+    },
   },
   created() {
     this.ev.date = this.createEvDate();
@@ -40,3 +48,12 @@ export default {
   },
 };
 </script>
+<style scoped lang="scss">
+  .error {
+    color: red;
+    text-align: center;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+</style>
