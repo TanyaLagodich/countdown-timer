@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap');
+@import '~bootstrap';
 
 html {
   height: 100vh;
@@ -11,71 +12,27 @@ html {
 body {
   margin: 0;
   padding: 50px 0;
-  background-color: #111721;
-  color: #ffffff;
+  background-color: #ffffff;
+  color: #000000;
   height: 100%;
   font-family: 'Montserrat', 'sans-serif';
 }
 
-.container {
-  margin: 0 auto;
-  padding: 0 20px;
-  max-width: 1344px;
-  width: 100%;
+#app {
+  height: 100%;
 }
 
-h1 {
-  margin: 0 0 50px;
-  text-align: center;
-  color: rgba(248, 207, 137, 1);
-  font-size: 56px;
+.container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .wrap {
-  display: flex;
-  justify-content: space-around;
+  flex: 1;
 }
 
-.input-box {
-  width: 100%;
-  padding: 30px;
-  border: 2px solid rgba(248, 207, 137, 1);
-  position: relative;
-  &:not(:last-child) {
-    margin-right: 32px;
-  }
-  label {
-    margin-bottom: 28px;
-    display: block;
-    padding-left: 13px;
-    font-size: 11px;
-    line-height: 16px;
-    color: #6B6B6B;
-  }
-  input {
-    padding: 6px 13px 4px;
-    display: block;
-    background: transparent;
-    width: 100%;
-    border: {
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 1px solid #D3AE6E;
-    }
-    color: #ffffff;
-    outline: none;
-  }
-  button {
-    background: linear-gradient(105.71deg, #DBB777 -4.02%, #A98341 103.09%);
-    border-radius: 50px;
-    padding: 16px;
-    font-size: 14px;
-    color: #ffffff;
-    border: 0;
-    outline: none;
-    max-width: 220px;
-    width: 100%;
-    cursor: pointer;
-  }
+.form-control[readonly] {
+  background-color: inherit;
 }

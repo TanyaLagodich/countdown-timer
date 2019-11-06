@@ -1,8 +1,8 @@
 <template>
-  <div class="input-box">
+  <div class="d-flex justify-content-center align-items-center wrap">
     <h3 v-if="eventsList.length">Список событий</h3>
-    <h3 v-else>Вы еще не добавили ни одного события</h3>
-    <button>Добавить</button>
+    <button class="btn btn-dark"
+            @click="$emit('addEvent')">Добавить таймер</button>
     <a></a>
   </div>
 </template>

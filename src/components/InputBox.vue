@@ -1,20 +1,25 @@
 <template>
-  <div class="input-box">
-    <label>Название
+  <div class="form-group d-flex flex-column w-50 h-100 mx-auto
+              justify-content-center align-items-center">
+    <label class="w-100 mb-4">Название
       <input type="text"
-             v-model="ev.name">
+            v-model="ev.name"
+            class="form-control mt-2">
     </label>
-    <label>Дата
+    <label class="w-100 mb-4">Дата
       <flatpickr v-model="ev.date"
-                 :config="dateConfig" />
+                :config="dateConfig"
+                class="form-control mt-2" />
     </label>
-    <label>Время
+    <label class="w-100 mb-5">Время
       <flatpickr v-model="ev.time"
-                 :config="timeConfig" />
+                :config="timeConfig"
+                class="form-control mt-2" />
     </label>
-    <button @click="createEvent">Создать</button>
+    <button @click="createEvent"
+            class="btn btn-dark">Создать</button>
     <!-- <p v-if="error"
-       class="error">{{ error }}</p> -->
+      class="error">{{ error }}</p> -->
   </div>
 </template>
 <script>

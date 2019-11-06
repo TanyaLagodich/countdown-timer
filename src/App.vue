@@ -1,15 +1,14 @@
 <template>
   <div id="app">
     <div class="container">
-      <h1>Countdown Timer</h1>
-      <div class="wrap">
-        <events-list />
-        <input-box v-if="!event"
-                  @countLeftTime="countLeftTime"
-                  :error="error" />
-        <count-left v-else
-                    :leftTimes="leftTimes" />
-      </div>
+      <h1 class="text-center">Countdown Timer</h1>
+      <events-list v-if="!newEvent"
+                    @addEvent="addEvent" />
+      <input-box v-if="newEvent && !event"
+                @countLeftTime="countLeftTime"
+                :error="error" />
+      <count-left v-if="!newEvent && event"
+                  :leftTimes="leftTimes" />
     </div>
   </div>
 </template>
@@ -23,6 +22,7 @@ export default {
   data() {
     return {
       event: false,
+      newEvent: false,
       leftTimes: {
         days: '',
         hours: '',
@@ -33,8 +33,12 @@ export default {
     };
   },
   methods: {
+    addEvent() {
+      this.newEvent = true;
+    },
     countLeftTime(ev) {
       this.event = true;
+      this.newEvent = false;
       const today = new Date().getTime();
       const eventDate = new Date(`${ev.date} ${ev.time}`).getTime();
       const diff = eventDate - today;
