@@ -62,7 +62,7 @@ export default {
   methods: {
     createEvent() {
       const [date, month, year] = this.ev.date.split('-');
-      this.ev.date = `${year}, ${month + 1}, ${date}`;
+      this.ev.date = `${year}, ${+month + 1}, ${date}`;
       this.$emit('countLeftTime', this.ev);
     },
   },

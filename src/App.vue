@@ -2,13 +2,14 @@
   <div id="app">
     <div class="container">
       <h1 class="text-center">Countdown Timer</h1>
-      <events-list v-if="!newEvent"
+      <events-list v-if="!newEvent && !event"
                     @addEvent="addEvent" />
       <input-box v-if="newEvent && !event"
                 @countLeftTime="countLeftTime"
                 :error="error" />
       <count-left v-if="!newEvent && event"
-                  :leftTimes="leftTimes" />
+                  :leftTimes="leftTimes"
+                  @reset="reset" />
     </div>
   </div>
 </template>
@@ -30,9 +31,15 @@ export default {
         seconds: '',
       },
       error: '',
+      timerId: null,
     };
   },
   methods: {
+    reset() {
+      this.newEvent = false;
+      this.event = false;
+      this.timerId = null;
+    },
     addEvent() {
       this.newEvent = true;
     },
@@ -51,9 +58,9 @@ export default {
       this.leftTimes.hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
       this.leftTimes.minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
       this.leftTimes.seconds = Math.floor((diff % (1000 * 60)) / 1000);
-      let timerId = setInterval(() => {
-        timerId = setInterval(() => this.countLeftTime(ev), 1000);
-        if (diff === 0 || diff < 0) clearInterval(timerId);
+      this.timerId = setInterval(() => {
+        this.timerId = setInterval(() => this.countLeftTime(ev), 1000);
+        if (diff === 0 || diff < 0) clearInterval(this.timerId);
       }, 0);
     },
   },
