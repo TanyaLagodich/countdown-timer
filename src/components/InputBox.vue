@@ -4,9 +4,13 @@
     <label class="w-100 mb-4">Название
       <input type="text"
             v-model="ev.name"
-            class="form-control mt-2">
+            class="form-control mt-2"
+            :class="{'border-danger': submitStatus === 'ERROR' && !ev.name.trim()}">
+      <small v-if="submitStatus === 'ERROR' && !ev.name.trim()"
+             class="position-absolute">Вы пропустили поле</small>
     </label>
     <label class="w-100 mb-4">Дата
+      {{ev.date}}
       <flatpickr v-model="ev.date"
                 :config="dateConfig"
                 class="form-control mt-2" />
@@ -18,8 +22,7 @@
     </label>
     <button @click="createEvent"
             class="btn btn-dark">Создать</button>
-    <!-- <p v-if="error"
-      class="error">{{ error }}</p> -->
+    <small v-if="submitStatus === 'ERROR' && errorTime.trim()">{{ errorTime }}</small>
   </div>
 </template>
 <script>
@@ -35,6 +38,8 @@ export default {
         date: '',
         time: '',
       },
+      submitStatus: '',
+      errorTime: '',
       dateConfig: {
         minDate: 'today',
         defaultDate: 'today',
@@ -61,9 +66,25 @@ export default {
   },
   methods: {
     createEvent() {
+      if (!this.ev.name.trim()) {
+        this.submitStatus = 'ERROR';
+        return;
+      }
+
+      const today = new Date().getTime();
       const [date, month, year] = this.ev.date.split('-');
-      this.ev.date = `${year}, ${+month + 1}, ${date}`;
-      this.$emit('countLeftTime', this.ev);
+      // this.ev.date = `${year}, ${+month + 1}, ${date}`;
+      const eventDate = new Date(`${year}, ${+month + 1}, ${date}, ${this.ev.time}`).getTime();
+      const diff = eventDate - today;
+      console.log(this.ev.date);
+      if (diff <= 0) {
+        this.submitStatus = 'ERROR';
+        this.errorTime = 'Это событие уже наступило!';
+        return;
+      }
+
+      this.submitStatus = '';
+      this.$emit('countLeftTime', diff);
     },
   },
 };
