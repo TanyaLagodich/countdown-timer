@@ -42,11 +42,10 @@ export default {
     },
     addEvent() {
       this.newEvent = true;
+      this.error = '';
     },
     countLeftTime(ev) {
       this.timerId = setInterval(() => {
-        this.event = true;
-        this.newEvent = false;
         const today = new Date().getTime();
         const eventDate = new Date(`${ev.date} ${ev.time}`).getTime();
         const diff = eventDate - today;
@@ -56,6 +55,8 @@ export default {
           this.error = 'Это событие уже наступило!';
           return;
         }
+        this.event = true;
+        this.newEvent = false;
         this.leftTimes.days = Math.floor(diff / (1000 * 60 * 60 * 24));
         this.leftTimes.hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         this.leftTimes.minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));

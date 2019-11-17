@@ -21,7 +21,7 @@
     </label>
     <button @click="createEvent"
             class="btn btn-dark">Создать</button>
-    <small v-if="submitStatus === 'ERROR' && error.trim()"
+    <small v-if="error.trim()"
            class="mt-1 color-danger">{{ error }}</small>
   </div>
 </template>
@@ -70,10 +70,11 @@ export default {
         this.submitStatus = 'ERROR';
         return;
       }
-      const [date, month, year] = this.ev.date.split('-');
-      this.ev.date = `${year}, ${month}, ${date}`;
+      const ev = { ...this.ev };
+      const [date, month, year] = ev.date.split('-');
+      ev.date = `${year}, ${month}, ${date}`;
       this.submitStatus = '';
-      this.$emit('countLeftTime', this.ev);
+      this.$emit('countLeftTime', ev);
     },
   },
 };
