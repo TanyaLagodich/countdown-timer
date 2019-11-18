@@ -3,7 +3,9 @@
     <div class="container">
       <h1 class="text-center">Countdown Timer</h1>
       <events-list v-if="!newEvent && !event"
-                    @addEvent="addEvent" />
+                    @addEvent="addEvent"
+                     @countLeftTime="countLeftTime"
+                    :event-list="eventList" />
       <input-box v-if="newEvent && !event"
                 @countLeftTime="countLeftTime"
                 :error="error" />
@@ -32,7 +34,12 @@ export default {
       },
       error: '',
       timerId: null,
+      eventList: [],
     };
+  },
+  created() {
+    this.eventList = JSON.parse(localStorage.getItem('eventList')) || [];
+    console.log(this.eventList);
   },
   methods: {
     reset() {
@@ -49,12 +56,12 @@ export default {
         const today = new Date().getTime();
         const eventDate = new Date(`${ev.date} ${ev.time}`).getTime();
         const diff = eventDate - today;
-        console.log(diff);
         if (diff <= 0) {
           clearInterval(this.timerId);
           this.error = 'Это событие уже наступило!';
           return;
         }
+        this.setLocaleStorage(ev);
         this.event = true;
         this.newEvent = false;
         this.leftTimes.days = Math.floor(diff / (1000 * 60 * 60 * 24));
@@ -62,6 +69,12 @@ export default {
         this.leftTimes.minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
         this.leftTimes.seconds = Math.floor((diff % (1000 * 60)) / 1000);
       }, 0);
+    },
+    setLocaleStorage(ev) {
+      const items = JSON.parse(localStorage.getItem('eventList')) || [];
+      if (items.find(item => JSON.stringify(item) === JSON.stringify(ev))) return;
+      this.eventList.push(ev);
+      localStorage.setItem('eventList', JSON.stringify(this.eventList));
     },
   },
 };
