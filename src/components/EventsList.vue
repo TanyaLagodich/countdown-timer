@@ -1,9 +1,9 @@
 <template>
   <div>
     <div class="d-flex justify-content-space-betnween w-100 mb-4">
-      <h2 class="text-left w-100">Список событий</h2>
+      <h2 class="text-left w-100">Event list</h2>
       <button class="btn btn-dark w-50"
-              @click="$emit('addEvent')">Добавить таймер</button>
+              @click="$emit('addEvent')">Add timer</button>
     </div>
     <table class="table"
            v-if="eventList && eventList.length">
@@ -21,14 +21,14 @@
             <td>{{ ev.time }}</td>
             <td class="text-center">
               <button class="btn btn-dark mr-3"
-                      @click="$emit('countLeftTime', ev)">Показать</button>
+                      @click="$emit('countLeftTime', ev)">Show</button>
               <button class="btn btn-dark"
-                      @click="$emit('removeEvent', ev)">Удалить</button>
+                      @click="$emit('removeEvent', ev.id)">Delete</button>
             </td>
         </tr>
       </tbody>
     </table>
-    <p v-else>Вы еще не добавили ни одного события</p>
+    <p v-else>You have not added any events yet.</p>
   </div>
 </template>
 <script>

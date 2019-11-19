@@ -5,6 +5,7 @@
       <events-list v-if="!newEvent && !event"
                     @addEvent="addEvent"
                      @countLeftTime="countLeftTime"
+                     @removeEvent="removeEvent"
                     :event-list="eventList" />
       <input-box v-if="newEvent && !event"
                 @countLeftTime="countLeftTime"
@@ -74,6 +75,11 @@ export default {
       const items = JSON.parse(localStorage.getItem('eventList')) || [];
       if (items.find(item => JSON.stringify(item) === JSON.stringify(ev))) return;
       this.eventList.push(ev);
+      localStorage.setItem('eventList', JSON.stringify(this.eventList));
+    },
+    removeEvent(id) {
+      const index = this.eventList.findIndex(ev => ev.id === id);
+      this.eventList.splice(index, 1);
       localStorage.setItem('eventList', JSON.stringify(this.eventList));
     },
   },

@@ -26,7 +26,6 @@
   </div>
 </template>
 <script>
-import Russian from 'flatpickr/dist/l10n/ru';
 import Flatpickr from './_Flatpickr.vue';
 
 export default {
@@ -34,6 +33,7 @@ export default {
   data() {
     return {
       ev: {
+        id: `_ ${Math.random().toString(36).substr(2, 9)}`,
         name: '',
         date: `${new Date().getDate()}-${new Date().getMonth() + 1}-${new Date().getFullYear()}`,
         time: '',
@@ -42,7 +42,6 @@ export default {
       dateConfig: {
         minDate: 'today',
         defaultDate: 'today',
-        locale: Russian.ru,
         dateFormat: 'd-m-Y',
       },
       timeConfig: {

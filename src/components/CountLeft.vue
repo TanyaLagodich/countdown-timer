@@ -1,7 +1,7 @@
 <template>
   <div v-if="leftTimes && Object.keys(leftTimes).length">
     <button class="btn btn-dark"
-            @click="$emit('reset')">Назад</button>
+            @click="$emit('reset')">Back</button>
     <div class="row wrap justify-content-center align-items-center">
       <ul class="d-flex">
         <li><h1 class="text-center">{{ leftTimes.days }}</h1>days</li>
