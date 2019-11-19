@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div class="container">
-      <h1 class="text-center">Countdown Timer</h1>
+      <h1 class="text-center mb-5">Countdown Timer</h1>
       <events-list v-if="!newEvent && !event"
                     @addEvent="addEvent"
                      @countLeftTime="countLeftTime"
