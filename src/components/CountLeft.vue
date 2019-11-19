@@ -4,10 +4,18 @@
             @click="$emit('reset')">Back</button>
     <div class="row wrap justify-content-center align-items-center">
       <ul class="d-flex">
-        <li><h1 class="text-center">{{ leftTimes.days }}</h1>days</li>
-        <li><h1 class="text-center">{{ leftTimes.hours }}</h1>hours</li>
-        <li> <h1 class="text-center">{{ leftTimes.minutes }}</h1>minutes</li>
-        <li> <h1 class="text-center">{{ leftTimes.seconds }}</h1>seconds</li>
+        <li>
+          <h1 class="text-center border-bottom border-dark">{{ leftTimes.days }}</h1>days
+        </li>
+        <li>
+          <h1 class="text-center border-bottom border-dark">{{ leftTimes.hours }}</h1>hours
+        </li>
+        <li>
+          <h1 class="text-center border-bottom border-dark">{{ leftTimes.minutes }}</h1>minutes
+        </li>
+        <li>
+          <h1 class="text-center border-bottom border-dark">{{ leftTimes.seconds }}</h1>seconds
+        </li>
       </ul>
     </div>
   </div>

@@ -73,7 +73,7 @@ export default {
     },
     setLocaleStorage(ev) {
       const items = JSON.parse(localStorage.getItem('eventList')) || [];
-      if (items.find(item => JSON.stringify(item) === JSON.stringify(ev))) return;
+      if (items.find(item => item.id === ev.id)) return;
       this.eventList.push(ev);
       localStorage.setItem('eventList', JSON.stringify(this.eventList));
     },
