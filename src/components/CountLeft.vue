@@ -2,7 +2,11 @@
   <div v-if="leftTimes && Object.keys(leftTimes).length">
     <button class="btn btn-dark"
             @click="$emit('reset')">Back</button>
-    <div class="row wrap justify-content-center align-items-center">
+    <div v-if="leftTimes.diff <= 100">
+      <h2 class="text-center">Event has come!</h2>
+    </div>
+    <div v-else
+         class="row wrap justify-content-center align-items-center">
       <ul class="d-flex">
         <li>
           <h1 class="text-center border-bottom border-dark">{{ leftTimes.days }}</h1>days

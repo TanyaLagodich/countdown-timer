@@ -8,9 +8,9 @@
     <table class="table"
            v-if="eventList && eventList.length">
       <thead>
-        <th>Название</th>
-        <th>Дата</th>
-        <th>Время</th>
+        <th>Name</th>
+        <th>Data</th>
+        <th>Time</th>
         <th></th>
       </thead>
       <tbody>
@@ -19,7 +19,14 @@
             <td>{{ ev.name }}</td>
             <td>{{ formatDate(ev.date) }}</td>
             <td>{{ ev.time }}</td>
-            <td class="text-center">
+            <td v-if="ev.hasCome"
+                class="d-flex align-items-center justify-content-end">
+              <p class="mr-3 mb-0">Event has come!</p>
+              <button class="btn btn-dark"
+                      @click="$emit('removeEvent', ev.id)">Delete</button>
+            </td>
+            <td v-else
+                class="d-flex justify-content-end text-center">
               <button class="btn btn-dark mr-3"
                       @click="$emit('countLeftTime', ev)">Show</button>
               <button class="btn btn-dark"

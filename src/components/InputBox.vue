@@ -27,6 +27,7 @@
 </template>
 <script>
 import Flatpickr from './_Flatpickr.vue';
+import counterLeftDays from '@/utils/counterLeftDays';
 
 export default {
   components: { Flatpickr },
@@ -37,6 +38,7 @@ export default {
         name: '',
         date: `${new Date().getDate()}-${new Date().getMonth() + 1}-${new Date().getFullYear()}`,
         time: '',
+        hasCome: false,
       },
       submitStatus: '',
       dateConfig: {
@@ -51,13 +53,8 @@ export default {
         time_24hr: true,
         minuteIncrement: 1,
       },
+      error: '',
     };
-  },
-  props: {
-    error: {
-      type: String,
-      default: '',
-    },
   },
   created() {
     const now = new Date();
@@ -69,11 +66,17 @@ export default {
         this.submitStatus = 'ERROR';
         return;
       }
-      const ev = { ...this.ev };
-      const [date, month, year] = ev.date.split('-');
-      ev.date = `${year}, ${month}, ${date}`;
+
+      const diff = counterLeftDays(this.ev);
+      if (diff <= 100) {
+        this.error = 'Это событие уже наступило!';
+        this.submitStatus = 'ERROR';
+        return;
+      }
+
       this.submitStatus = '';
-      this.$emit('countLeftTime', ev);
+      this.$emit('countLeftTime', this.ev);
+      this.$emit('setLocaleStorage', this.ev);
     },
   },
 };
