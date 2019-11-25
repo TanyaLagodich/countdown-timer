@@ -10,4 +10,12 @@ describe('EventList.vue', () => {
     });
     expect(wrapper.text()).to.include(eventList);
   });
+
+  it('renders event for eact event in props.eventList', () => {
+    const eventList = ['', ''];
+    const wrapper = shallowMount(EventList, {
+      propsDate: { eventList },
+    });
+    // expect(wrapper.findAll('tbody tr').length.toMatch(eventList.length));
+  });
 });
