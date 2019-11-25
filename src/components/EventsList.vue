@@ -17,7 +17,7 @@
         <tr v-for="ev in eventList"
             :key="ev.name">
             <td>{{ ev.name }}</td>
-            <td>{{ formatDate(ev.date) }}</td>
+            <td>{{ ev.date }}</td>
             <td>{{ ev.time }}</td>
             <td v-if="ev.hasCome"
                 class="d-flex align-items-center justify-content-end">
@@ -30,7 +30,8 @@
               <button class="btn btn-dark mr-3"
                       @click="$emit('countLeftTime', ev)">Show</button>
               <button class="btn btn-dark"
-                      @click="$emit('removeEvent', ev.id)">Delete</button>
+                      @click="$emit('removeEvent', ev.id)"
+                      id="remove">Delete</button>
             </td>
         </tr>
       </tbody>
@@ -44,11 +45,6 @@ export default {
     eventList: {
       type: Array,
       default: () => [],
-    },
-  },
-  methods: {
-    formatDate(date) {
-      return date.split(', ').reverse().join('-');
     },
   },
 };
