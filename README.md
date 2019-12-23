@@ -1,5 +1,7 @@
 # countdown-timer
 
+## See here: https://tanyalagodich.github.io/countdown-timer/dist/
+
 ## Project setup
 ```
 yarn install
