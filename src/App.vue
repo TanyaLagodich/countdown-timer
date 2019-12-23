@@ -51,6 +51,9 @@ export default {
   created() {
     this.eventList = JSON.parse(localStorage.getItem('eventList')) || [];
   },
+  beforeDestroy() {
+    clearInterval(this.timerId);
+  },
   methods: {
     reset() {
       this.newEvent = false;
