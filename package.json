@@ -30,7 +30,7 @@
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.0.0",
     "expect": "^24.9.0",
-    "jsdom": "^15.2.1",
+    "jsdom": "^16.5.0",
     "jsdom-global": "^3.0.2",
     "sass": "^1.19.0",
     "sass-loader": "^8.0.0",
